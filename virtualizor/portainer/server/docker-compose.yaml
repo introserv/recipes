@@ -11,10 +11,10 @@ services:
 
   portainer:
     image: portainer/portainer-ce:lts
-    command: sh -c "-H unix:///var/run/docker.sock; --admin-password $PASSWORD"
+    command: sh -c "-H unix:///var/run/docker.sock; --admin-password PASSWORD"
     restart: always
     environment:
-      - VIRTUAL_HOST=$HOSTNAME
+      - VIRTUAL_HOST=HOSTNAME
       - VIRTUAL_PORT=9000
     ports:
       - 8000:8000
