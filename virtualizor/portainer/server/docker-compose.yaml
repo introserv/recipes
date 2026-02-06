@@ -1,0 +1,26 @@
+version: "2"
+
+services:
+  nginx-proxy:
+    image: nginxproxy/nginx-proxy
+    restart: always
+    ports:
+      - "80:80"
+    volumes:
+      - "/var/run/docker.sock:/tmp/docker.sock:ro"
+
+  portainer:
+    image: portainer/portainer-ce:lts
+    command: sh -c "-H unix:///var/run/docker.sock; --admin-password $PASSWORD"
+    restart: always
+    environment:
+      - VIRTUAL_HOST=$HOSTNAME
+      - VIRTUAL_PORT=9000
+    ports:
+      - 8000:8000
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - portainer_data:/data
+
+volumes:
+  portainer_data:
