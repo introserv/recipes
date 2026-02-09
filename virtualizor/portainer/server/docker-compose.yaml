@@ -9,7 +9,7 @@ services:
 
   portainer:
     image: portainer/portainer-ce:lts
-    command: sh -c "-H unix:///var/run/docker.sock; --admin-password PORTAINER_PWD"
+    command: sh -c "-H unix:///var/run/docker.sock; --admin-password $PORTAINER_PWD"
     restart: always
     environment:
       - VIRTUAL_HOST=$PORTAINER_FQDN
