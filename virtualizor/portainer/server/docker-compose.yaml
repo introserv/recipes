@@ -2,14 +2,17 @@ services:
   nginx-proxy:
     image: nginxproxy/nginx-proxy
     restart: always
+    environment:
+      - DEFAULT_HOST=app.introserv.cloud
     ports:
       - "80:80"
+      - "443:443"
     volumes:
       - "/var/run/docker.sock:/tmp/docker.sock:ro"
-
+      - "/opt/portainer-server/ssl:/etc/nginx/certs:ro"
   portainer:
     image: portainer/portainer-ce:lts
-    command: -H unix:///var/run/docker.sock; --admin-password $PORTAINER_PWD
+    command: "-H unix:///var/run/docker.sock --admin-password $PORTAINER_PWD"
     restart: always
     environment:
       - VIRTUAL_HOST=$PORTAINER_FQDN
@@ -17,8 +20,7 @@ services:
     ports:
       - 8000:8000
     volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-      - portainer_data:/data
-
+      - "/var/run/docker.sock:/var/run/docker.sock"
+      - "portainer_data:/data"
 volumes:
   portainer_data:
