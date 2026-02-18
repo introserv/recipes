@@ -1,0 +1,25 @@
+# ThinLinc tl-setup answers file
+#
+# Edit this file to suit your systems and run:
+#  /opt/thinlinc/sbin/tl-setup -a THIS-FILE
+accept-eula=yes
+server-type=master
+migrate-conf=ignore
+install-required-libs=yes
+install-nfs=yes
+install-sshd=no
+install-gtk=yes
+install-python-ldap=yes
+agent-hostname-choice=ip
+email-address=<admin@email.local>
+tlwebadm-password=$TLADMINPWD
+setup-thinlocal=yes
+setup-nearest=yes
+setup-firewall-ssh=yes
+setup-firewall-tlwebaccess=yes
+setup-firewall-tlwebadm=yes
+setup-firewall-tlmaster=yes
+setup-firewall-tlagent=yes
+setup-selinux=yes
+setup-apparmor=yes
+missing-answer=abort
