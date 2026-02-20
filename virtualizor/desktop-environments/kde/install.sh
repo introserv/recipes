@@ -12,5 +12,5 @@ apt -qq update && apt -o "Dpkg::Options::=--force-confdef" -o "Dpkg::Options::=-
 useradd -m -s /bin/bash -G sudo $username
 echo "$username:$pwd"|chpasswd
 echo -e "Desktop login credentials:\nUser name: $username\nPassword: $pwd\n" >> /root/credentials.txt
-apt -qq -y install kde-full
+apt -qq -y install kde-full sddm-theme-maui
 #reboot
