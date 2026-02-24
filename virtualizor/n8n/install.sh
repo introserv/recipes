@@ -46,5 +46,5 @@ while [[ $a -le 60 ]]; do
     let "a++"
     sleep 1
   fi
-  
+done
 exit 0
