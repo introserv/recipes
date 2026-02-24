@@ -21,7 +21,7 @@ curl -fsSL https://raw.githubusercontent.com/introserv/recipes/refs/heads/main/v
 #export N8N_PWD="$pwd"
 export N8N_FQDN="$ip"
 envsubst < $targetDir/docker-compose.yaml.tmp > $targetDir/docker-compose.yaml
-rm /opt/portainer-server/docker-compose.yaml.tmp
+rm $targetDir/docker-compose.yaml.tmp
 openssl req -x509 -nodes -days 3650 -newkey rsa:2048 -keyout $targetDir/ssl/default.key -out $targetDir/ssl/default.crt -subj "/C=EU/O=INTROSERV/OU=CustomerService/CN=app.introserv.cloud"
 extif=$(ip r | grep default | cut -d " " -f 5)
 iptables -I INPUT -i $extif -p tcp -m tcp --dport 22 -j ACCEPT
