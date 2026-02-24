@@ -1,0 +1,27 @@
+services:
+  nginx-proxy:
+    image: nginxproxy/nginx-proxy
+    restart: unless-stopped
+    environment:
+      - DEFAULT_HOST=app.introserv.cloud
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - "/var/run/docker.sock:/tmp/docker.sock:ro"
+      - "/opt/n8n/ssl:/etc/nginx/certs:ro"
+  n8n:
+    image: n8nio/n8n:latest
+    restart: unless-stopped
+    ports:
+      - "5678:5678"
+    environment:
+      - N8N_SECURE_COOKIE=true
+      - N8N_HOST=$N8N_FQDN
+      - WEBHOOK_URL=https://$N8N_FQDN/
+      - GENERIC_TIMEZONE=CET
+      - VIRTUAL_HOST=$N8N_FQDN
+      - VIRTUAL_PORT=5678
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock"
+      - "/opt/n8n/n8n-data:/home/node/.n8n"
