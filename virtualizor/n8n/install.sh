@@ -18,7 +18,7 @@ chmod 777 $targetDir/n8n-data
 cd $targetDir
 curl -fsSL https://raw.githubusercontent.com/introserv/recipes/refs/heads/main/virtualizor/n8n/docker-compose.yml -o $targetDir/docker-compose.yaml.tmp
 #pwd="$(openssl rand -base64 12)"
-pwd="$(pwgen -sb 14 1)"
+pwd="$(pwgen -sB 14 1)"
 #export N8N_PWD="$pwd"
 export N8N_FQDN="$ip"
 envsubst < $targetDir/docker-compose.yaml.tmp > $targetDir/docker-compose.yaml
