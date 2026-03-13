@@ -16,7 +16,7 @@ https://*.introserv.cloud {
 }
 
 https://$HOST_IP {
-        tls /etc/ssl/private/key.crt /etc/ssl/private/key.pem
+        tls /etc/ssl/private/n8n.crt /etc/ssl/private/n8n.pem
         encode gzip
         reverse_proxy 127.0.0.1:5678 {
                 header_up Host {upstream_hostport}
