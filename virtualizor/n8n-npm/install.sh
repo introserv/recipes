@@ -41,8 +41,9 @@ export HOST_IP="$ip"
 mv /etc/caddy/Caddyfile /etc/caddy/Caddyfile.bak
 envsubst < $tmp/caddy.tmp > /etc/caddy/Caddyfile
 rm $tmp/caddy.tmp
-openssl req -x509 -nodes -days 3650 -newkey rsa:2048 -keyout /etc/ssl/private/n8n.key -out /etc/ssl/private/n8n.crt -subj "/C=EU/O=INTROSERV/OU=CustomerService/CN=app.introserv.cloud"
-systemctl start caddy
+openssl req -x509 -nodes -days 3650 -newkey rsa:2048 -keyout /var/lib/caddy/n8n.pem -out /var/lib/caddy/n8n.crt -subj "/C=EU/O=INTROSERV/OU=CustomerService/CN=app.introserv.cloud"
+chown caddy:caddy /var/lib/caddy/n8n.*
+systemctl restart caddy
 sleep 10
 a=0
 while [[ $a -le 60 ]]; do
