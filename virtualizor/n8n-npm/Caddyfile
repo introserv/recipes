@@ -1,0 +1,25 @@
+{
+        email hostmaster@introserv.com
+}
+
+https://*.introserv.cloud {
+        tls {
+                on_demand
+        }
+
+        encode gzip
+
+        reverse_proxy 127.0.0.1:5678 {
+                header_up Host {upstream_hostport}
+                flush_interval -1
+        }
+}
+
+https://$HOST_IP {
+        tls /etc/ssl/private/key.crt /etc/ssl/private/key.pem
+        encode gzip
+        reverse_proxy 127.0.0.1:5678 {
+                header_up Host {upstream_hostport}
+                flush_interval -1
+        }
+}
