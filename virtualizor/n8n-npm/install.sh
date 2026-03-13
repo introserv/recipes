@@ -3,7 +3,6 @@
 hostname='app.introserv.cloud'
 ip=$(hostname -I| cut -d " " -f 1)
 email='admin@email.local'
-pwd="$(pwgen -sB 14 1)"
 tmp=$(mktemp -d)
 DEBIAN_FRONTEND=noninteractive
 apt -qq update; apt -y -qq install curl jq pwgen npm caddy
@@ -49,6 +48,7 @@ a=0
 while [[ $a -le 60 ]]; do
         wget --spider http://localhost:5678/healthz
         if [[ $? == 0 ]]; then
+                pwd="$(pwgen -sB 14 1)"
                 payload=$(jq -n --arg email "$email" --arg password "$pwd" '{"email": $email, "password": $password,"firstName": "Admin","lastName": "User"}')
                 curl -s -X POST http://127.0.0.1:5678/rest/owner/setup -H "Content-Type: application/json" -d "$payload"
                 echo -e "N8N admin login credentials:\nURL:https://$ip/\nUser name: $email\nPassword: $pwd\n" >> /root/credentials.txt
