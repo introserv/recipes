@@ -28,8 +28,8 @@ iptables -P INPUT DROP
 netfilter-persistent save
 docker compose up -d
 APP_LOGIN="admin"
-APP_PASSWORD="$password"
+APP_PASSWORD="$pwd"
 payload=$(jq -n --arg login "$APP_LOGIN" --arg password "$APP_PASSWORD" '{"login": $login, "password": $password}')
-curl -sS -X POST "https://billing.host/api/marketplace_credentials.php" -H "Content-Type: application/json" -d $payload
+curl -sS -X POST "https://billing.host/api/marketplace_credentials.php" -H "Content-Type: application/json" -d "$payload"
 echo -e "Portainer login: $APP_LOGIN\nPortainer password:$APP_PASSWORD\n" >> /root/credentials.txt
 exit 0
